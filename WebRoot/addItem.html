@@ -1,0 +1,334 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<head>
+<title>添加商品</title>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, user-scalable=no" />
+<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+<link rel="stylesheet" href="assets/css/main.css" />
+<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+</link>
+<style type="text/css">
+</style>
+</head>
+<body>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Header -->
+		<header id="header"> <a href="index.html" class="logo"><strong>Forty
+				Shop</strong> <span>by 雨晨&汤汤</span> </a> <nav> <a href="#menu">Menu</a> </nav> </header>
+
+		<!-- Menu -->
+		<nav id="menu">
+		<ul class="actions vertical">
+			<li id="login"><a href="login.html" class="button fit">登录</a>
+			</li>
+		</ul>
+		</nav>
+
+		<!-- Main -->
+		<div id="main" class="alt">
+			<!-- One -->
+			<section id="one">
+			<div class="inner">
+				<header class="major">
+				<h1>
+					<a href="admin.html">我的仓库</a>
+				</h1>
+				</header>
+				<div class="box">
+					<h3>添加商品</h3>
+					<form method="post" action="#">
+						<div class="row uniform">
+							<div class="6u$ 12u$(medium)">
+								图片路径：<input type="text" name="imageURL" id="imageURL" value=""
+									placeholder="imageURL" />
+							</div>
+							<div class="6u$ 12u$(medium)">
+								商品ID：<input type="text" name="itemID" id="itemID" value=""
+									placeholder="itemID" />
+							</div>
+							<div class="6u$ 12u$(medium)">
+								商品名称：<input type="text" name="itemName" id="itemName" value=""
+									placeholder="itemName" />
+							</div>
+							<div class="6u$ 12u$(medium)">
+								商品描述：
+								<textarea name="itemDetail" id="itemDetail"
+									placeholder="itemDetail" rows="3"></textarea>
+							</div>
+							<div class="6u$ 12u$(medium)">
+								商品型号：
+								<div class="select-wrapper">
+									<select name="size" id="size">
+										<option value="">- 型号 -</option>
+										<option value="M">M</option>
+										<option value="L">L</option>
+										<option value="XL">XL</option>
+										<option value="standard">Standard</option>
+									</select>
+								</div>
+							</div>
+							<div class="6u$ 12u$(medium)">
+								商品单价：<input type="text" name="price" id="price" value=""
+									placeholder="price" />
+							</div>
+							<div class="6u$ 12u$(medium)">
+								商品类别：
+								<div class="select-wrapper">
+									<select name="part" id="part">
+										<option value="">- 类别 -</option>
+										<option value="winternew">冬季新态度</option>
+										<option value="accessories">配饰</option>
+										<option value="basic">基础百搭</option>
+										<option value="modern">摩登经典</option>
+										<option value="coat&jacket">温暖随型</option>
+										<option value="standard">休闲风格</option>
+									</select>
+								</div>
+							</div>
+							<p>产品ID编码规则：产品编号+size（相同产品编号显示时只显示一个条目）</p>
+							<div class="12u$">
+								<ul class="actions">
+									<li><input type="button" value="确认增加" onclick="update();"
+										class="special" /></li>
+									<li><input type="reset" value="清除" /></li>
+								</ul>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			</section>
+
+		</div>
+
+		<!-- Footer -->
+		<footer id="footer">
+		<div class="inner">
+			<ul class="icons">
+				<li><a href="#" class="icon alt fa-twitter"><span
+						class="label">Twitter</span> </a>
+				</li>
+				<li><a href="#" class="icon alt fa-facebook"><span
+						class="label">Facebook</span> </a>
+				</li>
+				<li><a href="#" class="icon alt fa-instagram"><span
+						class="label">Instagram</span> </a>
+				</li>
+				<li><a href="#" class="icon alt fa-github"><span
+						class="label">GitHub</span> </a>
+				</li>
+				<li><a href="#" class="icon alt fa-linkedin"><span
+						class="label">LinkedIn</span> </a>
+				</li>
+			</ul>
+			<ul class="copyright">
+				<li>&copy; ECNU</li>
+				<li>Design: 陈宇&汤韫铭</li>
+			</ul>
+		</div>
+		</footer>
+	</div>
+
+
+
+	<!-- Scripts -->
+
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.scrolly.min.js"></script>
+	<script src="assets/js/jquery.scrollex.min.js"></script>
+	<link rel="stylesheet"
+		href="alert/jQuery-lobibox20160404/dist/css/Lobibox.min.css"
+		type="text/css"></link>
+	<script type="text/javascript"
+		src="alert/jQuery-lobibox20160404/dist/js/lobibox.min.js"></script>
+	<script src="assets/js/skel.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="assets/js/main.js"></script>
+	<script type="text/javascript">
+		$(document)
+				.ready(
+						function() {
+							var login = document.getElementById('login');
+							if (login.children[0].innerHTML == "登录") {
+								$
+										.ajax({
+											type : "POST",
+											url : "/pb/restful/users/getCurrentUser",
+											dataType : "json",
+											success : function(data) {
+												username = data.obj;
+												if (username == null) {
+													Lobibox
+															.notify(
+																	'info',
+																	{
+																		img : "images/warn.png",
+																		title : "您还没有登陆，请登录后进行管理 ",
+																		msg : "稍后将自动跳转到登录页面。"
+																	});
+													setTimeout(
+															'window.location.href = "login.html";',
+															5000);
+													return;
+												} else {
+													$
+															.ajax({
+																type : "POST",
+																url : "/pb/restful/users/getCurrentUserType",
+																dataType : "json",
+																success : function(
+																		data) {
+																	console
+																			.log(data.obj);
+																	if (data.obj != "admin") {
+																		Lobibox
+																				.notify(
+																						'info',
+																						{
+																							img : "images/warn.png",
+																							title : "您没有权限访问该页面 ",
+																							msg : "稍后将自动跳转到主页。"
+																						});
+																		setTimeout(
+																				'window.location.href = "index.html";',
+																				5000);
+																		return;
+																	} else {
+																		var login = document
+																				.getElementById('login');
+																		login.innerHTML = "";
+																		var shtml = "<a class='button fit' id='login' onclick='exit()'>"
+																				+ "管理员"
+																				+ ",<font color='red'><bold>退出</bold></font></a>";
+																		$(
+																				'#login')
+																				.append(
+																						shtml);
+																	}
+																}
+															});
+												}
+											}
+										});
+							}
+						});
+	</script>
+
+	<script type="text/javascript">
+		function jumpadmin() {
+			window.location.href = "admin.html";
+		}
+	</script>
+
+	<script type="text/javascript">
+		function getParam(paramName) {
+			paramValue = "";
+			isFound = false;
+			if (this.location.search.indexOf("?") == 0
+					&& this.location.search.indexOf("=") > 1) {
+				arrSource = unescape(this.location.search).substring(1,
+						this.location.search.length).split("&");
+				i = 0;
+				while (i < arrSource.length && !isFound) {
+					if (arrSource[i].indexOf("=") > 0) {
+						if (arrSource[i].split("=")[0].toLowerCase() == paramName
+								.toLowerCase()) {
+							paramValue = arrSource[i].split("=")[1];
+							isFound = true;
+						}
+					}
+					i++;
+				}
+			}
+			return paramValue;
+		}
+	</script>
+
+
+	<script type="text/javascript">
+		function update() {
+			var coverImage = document.getElementById("imageURL").value;
+			var itemID = document.getElementById("itemID").value;
+			var itemName = document.getElementById("itemName").value;
+			var itemDetail = $("#itemDetail").val();
+			var size = $("#size").val();
+			var price = document.getElementById("price").value;
+			var part = $("#part").val();
+			console.log(size);
+			var reg = /^[1-9]\d*\.\d*|0\.\d*[1-9]\d*$/;
+			var	reg2 = /^-?[1-9]\d*$/;
+			if (coverImage == "" || itemID == "" || itemName == ""
+					|| itemDetail == "" || size == "" || price == ""
+					|| part == "") {
+				Lobibox.notify('error', {
+					img : "images/warn.png",
+					title : "请输入完整的内容 "
+				});
+				return;
+			} else if (!reg.test(price)) {
+				Lobibox.notify('error', {
+					img : "images/warn.png",
+					title : "请修改单价为正浮点数（0.0） "
+				});
+				return;
+			} 
+			else if(!reg2.test(itemID)){
+				Lobibox.notify('error', {
+					img : "images/warn.png",
+					title : "请修改商品ID为整数 "
+				});
+				return;
+			}
+			else {
+				$.ajax({
+					type : "POST",
+					url : "/pb/restful/admin/addItem",
+					dataType : "json",
+					data : {
+						"itemID" : itemID+size,
+						"coverImage" : coverImage,
+						"itemName" : itemName,
+						"itemDetail" : itemDetail,
+						"size" : size,
+						"part" : part,
+						"price" : price
+					},
+					success : function(data) {
+						console.log(data);
+						if (data.retcode == "0000") {
+							Lobibox.notify('info', {
+								img : "images/success.png",
+								title : "添加成功！ ",
+								msg : "稍后自动跳转到我的仓库。"
+							});
+							setTimeout('window.location.href = "admin.html";',
+									5000);
+							return;
+						}
+						else {
+							Lobibox.notify('info', {
+								img : "images/warn.png",
+								title : data.errorMsg,
+								msg : "请修改后再尝试提交。"
+							});
+						}
+					}
+				});
+			}
+		}
+	</script>
+</body>
+</html>

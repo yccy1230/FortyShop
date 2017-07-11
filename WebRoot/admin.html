@@ -1,0 +1,320 @@
+<!DOCTYPE HTML>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<head>
+<title>管理员模式</title>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, user-scalable=no" />
+<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+<link rel="stylesheet" href="assets/css/main.css" />
+<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+<style type="text/css">
+td {
+	vertical-align: middle;
+}
+
+.cover {
+	width: 100px;
+	height: 100px;
+}
+
+.buttons {
+	width: 30px;
+	height: 30px;
+}
+</style>
+</head>
+<body>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Header -->
+		<header id="header" class="alt">
+			<a href="index.html" class="logo"><strong>Forty Shop</strong> <span>by
+					雨晨&汤汤</span> </a>
+			<nav>
+				<a href="#menu">Menu</a>
+			</nav>
+		</header>
+
+		<!-- Menu -->
+		<nav id="menu">
+			<ul class="actions vertical">
+				<li id="login"><a href="login.html" class="button fit">登录</a></li>
+			</ul>
+		</nav>
+
+		<!-- Main -->
+		<div id="main" class="alt">
+
+			<!-- One -->
+			<section id="one">
+				<div class="inner">
+					<header class="major">
+						<h1>我的仓库</h1>
+					</header>
+					<div class="box">
+						<div>
+							<span><img src="images/additem.png"
+								class="buttons image right" alt="" title="增加商品"
+								onclick="addItem();" />
+						</div>
+						<br />
+						<br />
+						<div class="table-wrapper">
+							<table>
+								<thead>
+									<tr>
+										<th>图片</th>
+										<th>商品ID</th>
+										<th>商品名称</th>
+										<th>商品详情</th>
+										<th>尺寸</th>
+										<th>商品单价</th>
+										<th>所属板块</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								<tbody id="Comtbody">
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</section>
+
+		</div>
+
+
+		<!-- Footer -->
+		<footer id="footer">
+			<div class="inner">
+				<ul class="icons">
+					<li><a href="#" class="icon alt fa-twitter"><span
+							class="label">Twitter</span> </a></li>
+					<li><a href="#" class="icon alt fa-facebook"><span
+							class="label">Facebook</span> </a></li>
+					<li><a href="#" class="icon alt fa-instagram"><span
+							class="label">Instagram</span> </a></li>
+					<li><a href="#" class="icon alt fa-github"><span
+							class="label">GitHub</span> </a></li>
+					<li><a href="#" class="icon alt fa-linkedin"><span
+							class="label">LinkedIn</span> </a></li>
+				</ul>
+				<ul class="copyright">
+					<li>&copy; ECNU</li>
+					<li>Design: 陈宇&汤韫铭</li>
+
+				</ul>
+			</div>
+		</footer>
+
+	</div>
+
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.scrolly.min.js"></script>
+	<script src="assets/js/jquery.scrollex.min.js"></script>
+	<script src="assets/js/skel.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="assets/js/main.js"></script>
+
+	<link rel="stylesheet"
+		href="alert/jQuery-lobibox20160404/dist/css/Lobibox.min.css"
+		type="text/css"></link>
+	<script type="text/javascript"
+		src="alert/jQuery-lobibox20160404/dist/js/lobibox.min.js"></script>
+	<script type="text/javascript">
+		$(document)
+				.ready(
+						function() {
+							var login = document.getElementById('login');
+							if (login.children[0].innerHTML == "登录") {
+								$
+										.ajax({
+											type : "POST",
+											url : "/pb/restful/users/getCurrentUser",
+											dataType : "json",
+											success : function(data) {
+												username = data.obj;
+												if (username == null) {
+													Lobibox
+															.notify(
+																	'info',
+																	{
+																		img : "images/warn.png",
+																		title : "您还没有登陆，请登录后进行管理 ",
+																		msg : "稍后将自动跳转到登录页面。"
+																	});
+													setTimeout(
+															'window.location.href = "login.html";',
+															5000);
+													return;
+												} else {
+													$
+															.ajax({
+																type : "POST",
+																url : "/pb/restful/users/getCurrentUserType",
+																dataType : "json",
+																success : function(
+																		data) {
+																	console
+																			.log(data.obj);
+																	if (data.obj != "admin") {
+																		Lobibox
+																				.notify(
+																						'info',
+																						{
+																							img : "images/warn.png",
+																							title : "您没有权限访问该页面 ",
+																							msg : "稍后将自动跳转到主页。"
+																						});
+																		setTimeout(
+																				'window.location.href = "index.html";',
+																				5000);
+																		return;
+																	} else {
+																		var login = document
+																				.getElementById('login');
+																		login.innerHTML = "";
+																		var shtml = "<a class='button fit' id='login' onclick='exit()'>"
+																				+ "管理员"
+																				+ ",<font color='red'><bold>退出</bold></font></a>";
+																		$(
+																				'#login')
+																				.append(
+																						shtml);
+																		loadData();
+																	}
+																}
+															});
+												}
+											}
+										});
+							}
+						});
+	</script>
+
+	<script type="text/javascript">
+		function loadData() {
+			$
+					.ajax({
+						type : "POST",
+						url : "/pb/restful/admin/getAllItem",
+						dataType : "json",
+						success : function(data) {
+							if (data.retcode = "0000") {
+								document.getElementById("Comtbody").innerHTML = "";
+								$
+										.each(
+												data.obj,
+												function(index, item) {
+													var shtml = "<tr><td><img src='"+item.coverImage+"' class='cover'></img></td>"
+															+ "<td>"
+															+ item.itemId
+															+ "</td>"
+															+ "<td>"
+															+ item.clothesName
+															+ "</td>"
+															+ "<td width='30%'>"
+															+ item.clothesdetail
+															+ "</td>"
+															+ "<td>"
+															+ item.size
+															+ "</td>"
+															+ "<td>￥"
+															+ item.price
+															+ "</td>"
+															+ "<td>"
+															+ item.part
+															+ "</td>"
+															+ "<td width='10%' id='imgbutton'><img src='images/modify.png' onclick='modify(this);' title='修改' class='buttons' value='"
+															+ item.itemId
+															+ "'></img>"
+															+ "<img src='images/delete.png' onclick='deleteit(this);' class='buttons' title='删除' value='"
+															+ item.itemId
+															+ "'></img></td>"
+															+ "</tr>";
+													$('#Comtbody')
+															.append(shtml);
+												})
+							} else if (data.retcode == "0001") {
+								Lobibox.notify('info', {
+									img : "images/warn.png",
+									title : "您没有权限访问该页面 ",
+									msg : "稍后将自动跳转到主页。"
+								});
+								setTimeout(
+										'window.location.href = "index.html";',
+										5000);
+								return;
+							}
+						}
+
+					});
+		}
+	</script>
+
+	<script type="text/javascript">
+		function modify(item) {
+			window.location.href = "modify.html?itemID="
+					+ item.getAttribute("value");
+		}
+
+		function deleteit(item) {
+			$.ajax({
+				type : "POST",
+				url : "/pb/restful/admin/deleteItem",
+				dataType : "json",
+				data : {
+					"itemID" : item.getAttribute("value")
+				},
+				success : function(data) {
+					if (data.retcode == "0000") {
+						var node = item.parentNode.parentNode;
+						console.log(node);
+						var tbody = node.parentNode;
+						tbody.removeChild(node);
+						Lobibox.notify('info', {
+							img : "images/warn.png",
+							title : "删除记录成功 "
+						});
+					}
+				}
+
+			});
+		}
+
+		function addItem() {
+			window.location.href = "addItem.html";
+		}
+
+		/**
+		 * 退出登录
+		 */
+		function exit() {
+			console.log("exit");
+			$.ajax({
+				type : "POST",
+				url : "/pb/restful/deleteSession/deleteUsers",
+				dataType : "json",
+				data : {
+					"username" : username
+				},
+				success : function(data) {
+					jumpurl();
+				}
+
+			});
+		}
+	</script>
+</body>
+</html>

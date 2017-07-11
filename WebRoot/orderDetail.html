@@ -1,0 +1,405 @@
+<!DOCTYPE HTML>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<head>
+<title>订单详情</title>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, user-scalable=no" />
+<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+<link rel="stylesheet" href="assets/css/main.css" />
+<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+<style type="text/css">
+td {
+	vertical-align: middle;
+}
+
+.cover {
+	width: 100px;
+	height: 100px;
+}
+
+.buttons {
+	width: 30px;
+	height: 30px;
+}
+</style>
+</head>
+<body>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Header -->
+		<header id="header">
+			<a href="index.html" class="logo"><strong>Forty Shop</strong> <span>by
+					雨晨&汤汤</span> </a>
+			<nav>
+				<a href="#menu">Menu</a>
+			</nav>
+		</header>
+
+		<!-- Menu -->
+		<nav id="menu">
+			<ul class="links">
+				<li><a href="index.html">主页</a>
+				</li>
+				<li><a href="shoppingcart.html">购物车</a>
+				</li>
+			</ul>
+			<ul class="actions vertical">
+				<li><a href="orders.html" class="button special fit">我的订单</a>
+				</li>
+				<li id="login"><a href="login.html" class="button fit">登录</a>
+				</li>
+			</ul>
+		</nav>
+
+		<!-- Main -->
+		<div id="main" class="alt">
+
+			<!-- One -->
+			<section id="one">
+				<div class="inner">
+					<header class="major">
+						<h1><a href="orders.html">我的订单</a></h1>
+					</header>
+					<div class="box">
+						<h3>订单详情</h3>
+						<div class="table-wrapper">
+							<table>
+								<thead>
+									<tr>
+										<th>图片</th>
+										<th>商品名称</th>
+										<th>商品详情</th>
+										<th>尺寸</th>
+										<th>购买数量</th>
+										<th>商品单价</th>
+									</tr>
+								</thead>
+								<tbody id="Comtbody">
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</section>
+
+		</div>
+
+		<!-- Footer -->
+		<footer id="footer">
+			<div class="inner">
+				<ul class="icons">
+					<li><a href="#" class="icon alt fa-twitter"><span
+							class="label">Twitter</span> </a>
+					</li>
+					<li><a href="#" class="icon alt fa-facebook"><span
+							class="label">Facebook</span> </a>
+					</li>
+					<li><a href="#" class="icon alt fa-instagram"><span
+							class="label">Instagram</span> </a>
+					</li>
+					<li><a href="#" class="icon alt fa-github"><span
+							class="label">GitHub</span> </a>
+					</li>
+					<li><a href="#" class="icon alt fa-linkedin"><span
+							class="label">LinkedIn</span> </a>
+					</li>
+				</ul>
+				<ul class="copyright">
+					<li>&copy; ECNU</li>
+					<li>Design: 陈宇&汤韫铭</li>
+
+				</ul>
+			</div>
+		</footer>
+
+	</div>
+
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.scrolly.min.js"></script>
+	<script src="assets/js/jquery.scrollex.min.js"></script>
+	<script src="assets/js/skel.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="assets/js/main.js"></script>
+	<link rel="stylesheet"
+		href="alert/jQuery-lobibox20160404/dist/css/Lobibox.min.css"
+		type="text/css"></link>
+	<script type="text/javascript"
+		src="alert/jQuery-lobibox20160404/dist/js/lobibox.min.js"></script>
+
+	<script type="text/javascript">
+		$(document)
+				.ready(
+						function() {
+							$
+									.ajax({
+										type : "POST",
+										url : "/pb/restful/users/getCurrentUser",
+										dataType : "json",
+										success : function(data) {
+											username = data.obj;
+											if (username == null) {
+												Lobibox.notify('info', {
+													img : "images/warn.png",
+													title : "您还没有登陆，请登录后查看 ",
+													msg : "稍后将自动跳转到登录页面。"
+												});
+												setTimeout('jumplogin()', 5000);
+											} else {
+												$
+														.ajax({
+															type : "POST",
+															url : "/pb/restful/order/getOrderDetail",
+															dataType : "json",
+															data : {
+																"orderID" : getParam("orderID")
+															},
+															success : function(
+																	data) {
+																console
+																		.log(data);
+																document
+																		.getElementById("Comtbody").innerHTML = "";
+																$
+																		.each(
+																				data.obj,
+																				function(
+																						index,
+																						item) {
+																					var shtml = "<tr><td><img src='"+item.coverImage+"' class='cover'></img></td>"
+																							+"<td>"+item.clothesName+"</td>"
+																							+ "<td width='30%'>"
+																							+ item.clothesdetail
+																							+ "</td>"
+																							+ "<td id='orderStatus'>"
+																							+ item.size
+																							+ "</td>"
+																							+ "<td>"
+																							+ item.remainNum
+																							+ "</td>"
+																							+ "<td>￥"
+																							+ item.price
+																							+ "</td></tr>";
+																							$('#Comtbody').append(shtml);
+																				})
+															}
+														});
+
+											}
+										}
+									});
+						});
+	</script>
+	<script type="text/javascript">
+		function getParam(paramName) {
+			paramValue = "";
+			isFound = false;
+			if (this.location.search.indexOf("?") == 0
+					&& this.location.search.indexOf("=") > 1) {
+				arrSource = unescape(this.location.search).substring(1,
+						this.location.search.length).split("&");
+				i = 0;
+				while (i < arrSource.length && !isFound) {
+					if (arrSource[i].indexOf("=") > 0) {
+						if (arrSource[i].split("=")[0].toLowerCase() == paramName
+								.toLowerCase()) {
+							paramValue = arrSource[i].split("=")[1];
+							isFound = true;
+						}
+					}
+					i++;
+				}
+			}
+			return paramValue;
+		}
+	</script>
+	
+	<script type="text/javascript">
+		var username;
+
+		/**
+		 * 页面获取初始数据，初始化登录按钮
+		 */
+		$(document)
+				.ready(
+						function() {
+							var login = document.getElementById('login');
+							if (login.children[0].innerHTML == "登录") {
+								$.ajax({
+									type : "POST",
+									url : "/pb/restful/users/getCurrentUser",
+									dataType : "json",
+									success : function(data) {
+										username = data.obj;
+										if (username == null) {
+											return;
+										} else {
+											login.innerHTML = "";
+											var shtml = "<a class='button fit' id='login' onclick='exit()'>"
+													+ username
+													+ ",<font color='red'><bold>退出</bold></font></a>";
+											$('#login').append(shtml);
+										}
+									}
+								});
+							}
+						});
+		
+		/**
+		 * 退出登录
+		 */
+		function exit() {
+			console.log();
+			$.ajax({
+				type : "POST",
+				url : "/pb/restful/deleteSession/deleteUsers",
+				dataType : "json",
+				data : {
+					"username" : username
+				},
+				success : function(data) {
+					jumpurl();
+				}
+		
+			});
+		}
+		
+		/**
+		 * 获取当前session用户名
+		 */
+		function getUsername(){
+			$.ajax({
+				type : "POST",
+				url : "/pb/restful/users/getCurrentUser",
+				dataType : "json",
+				success : function(data) {
+					username = data.obj;
+					console.log(username);
+					return username;
+				}
+			});
+			
+		}
+		
+		/**
+		 * 添加条目到用户的购物车（cart）中
+		 * 
+		 * @param item
+		 *            添加购物车按钮
+		 */
+		function addItem2Cart(item) {
+			var itemID = item.getAttribute("value");
+			var size = document.getElementsByName(itemID);
+			var flag = 1;
+			for ( var i = 0; i < size.length; i++) {
+				if (size[i].checked) {
+					itemID += size[i].value;
+					flag = 0;
+				}
+			}
+			if (flag) {
+				Lobibox.notify('info', {
+					img : "images/warn.png",
+					title : "请选择型号！"
+				});
+				return;
+			}
+			
+			$.ajax({
+				type : "POST",
+				url : "/pb/restful/users/getCurrentUser",
+				dataType : "json",
+				success : function(data) {
+					username = data.obj;
+					if (username == null) {
+		
+						Lobibox.notify('info', {
+							img : "images/warn.png",
+							title : "您还没有登陆，请登录后购买 ",
+							msg : "稍后将自动跳转到登录页面。"
+						});
+						setTimeout('jumplogin()', 5000);
+						return;
+					}
+					else{
+						$.ajax({
+							type : "POST",
+							url : "/pb/restful/item/addItem",
+							dataType : "json",
+							data : {
+								"itemID" : itemID,
+							},
+							success : function(data) {
+								Lobibox.notify('info', {
+									img : "images/warn.png",
+									title : "加入购物车成功",
+									msg : "请到购物车查看。"
+								});
+							}
+		
+						});
+					}
+				}
+			});
+		}
+		
+		
+		/**
+		 * 跳转到主页
+		 */
+		function jumpurl(){
+			window.location.href="index.html"; 
+		}
+		
+		/**
+		 * 跳转到登录界面
+		 */
+		function jumplogin() {
+			window.location.href = "login.html";
+		}
+		
+		/*
+		 * 功能：获取cookies函数 参数：name，cookie名字
+		 */
+		function getCookie(name) {
+			var arr = document.cookie.match(new RegExp("(^| )" + name
+					+ "=([^;]*)(;|$)"));
+			if (arr != null) {
+				return unescape(arr[2]);
+			} else {
+				return null;
+			}
+		}
+		/*
+		 * 功能：删除cookies函数 参数：name，cookie名字
+		 */
+		
+		 function delCookie(name){
+		     var exp = new Date();  // 当前时间
+		     exp.setTime(exp.getTime() - 1);
+		     var cval=getCookie(name);
+		     if(cval!=null) document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+		 }
+		 
+		 /*
+			 * 功能：保存cookies函数 参数：name，cookie名字；value，值
+			 */
+		 function SetCookie(name,value){
+		     var Days = 0.02;   // cookie 将被保存半小时
+		     var exp  = new Date();  // 获得当前时间
+		     exp.setTime(exp.getTime() + Days*24*60*60*1000);  // 换成毫秒
+		     document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+		 } 
+	</script>
+</body>
+</html>

@@ -1,0 +1,550 @@
+<!DOCTYPE HTML>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<head>
+<title>我的订单</title>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, user-scalable=no" />
+<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+<link rel="stylesheet" href="assets/css/main.css" />
+<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+<style type="text/css">
+td {
+	vertical-align: middle;
+}
+
+.cover {
+	width: 100px;
+	height: 100px;
+}
+
+.buttons {
+	width: 30px;
+	height: 30px;
+}
+</style>
+</head>
+<body>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Header -->
+		<header id="header">
+			<a href="index.html" class="logo"><strong>Forty Shop</strong> <span>by
+					雨晨&汤汤</span> </a>
+			<nav>
+				<a href="#menu">Menu</a>
+			</nav>
+		</header>
+
+		<!-- Menu -->
+		<nav id="menu">
+			<ul class="links">
+				<li><a href="index.html">主页</a></li>
+				<li><a href="shoppingcart.html">购物车</a></li>
+			</ul>
+			<ul class="actions vertical">
+				<li><a href="orders.html" class="button special fit">我的订单</a></li>
+				<li id="login"><a href="login.html" class="button fit">登录</a></li>
+			</ul>
+		</nav>
+
+		<!-- Main -->
+		<div id="main" class="alt">
+
+			<!-- One -->
+			<section id="one">
+				<div class="inner">
+					<header class="major">
+						<h1>我的订单</h1>
+					</header>
+					<div class="box">
+						<h3>未完成订单</h3>
+						<div class="table-wrapper">
+							<table>
+								<thead>
+									<tr>
+										<th>图片</th>
+										<th>订单号</th>
+										<th>详情</th>
+										<th>订单状态</th>
+										<th>订单日期</th>
+										<th>订单总额</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								<tbody id="Untbody">
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<hr />
+					<div class="box">
+						<h3>已完成订单</h3>
+						<div class="table-wrapper">
+							<table>
+								<thead>
+									<tr>
+										<th>图片</th>
+										<th>订单号</th>
+										<th>详情</th>
+										<th>订单状态</th>
+										<th>订单日期</th>
+										<th>订单总额</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								<tbody id="Comtbody">
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</section>
+
+		</div>
+
+		<!-- Footer -->
+		<footer id="footer">
+			<div class="inner">
+				<ul class="icons">
+					<li><a href="#" class="icon alt fa-twitter"><span
+							class="label">Twitter</span> </a></li>
+					<li><a href="#" class="icon alt fa-facebook"><span
+							class="label">Facebook</span> </a></li>
+					<li><a href="#" class="icon alt fa-instagram"><span
+							class="label">Instagram</span> </a></li>
+					<li><a href="#" class="icon alt fa-github"><span
+							class="label">GitHub</span> </a></li>
+					<li><a href="#" class="icon alt fa-linkedin"><span
+							class="label">LinkedIn</span> </a></li>
+				</ul>
+				<ul class="copyright">
+					<li>&copy; ECNU</li>
+					<li>Design: 陈宇&汤韫铭</li>
+
+				</ul>
+			</div>
+		</footer>
+
+	</div>
+
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.scrolly.min.js"></script>
+	<script src="assets/js/jquery.scrollex.min.js"></script>
+	<script src="assets/js/skel.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="assets/js/main.js"></script>
+	<link rel="stylesheet"
+		href="alert/jQuery-lobibox20160404/dist/css/Lobibox.min.css"
+		type="text/css"></link>
+	<script type="text/javascript"
+		src="alert/jQuery-lobibox20160404/dist/js/lobibox.min.js"></script>
+
+	<script type="text/javascript">
+		$(document)
+				.ready(
+						function() {
+							$
+									.ajax({
+										type : "POST",
+										url : "/pb/restful/users/getCurrentUser",
+										dataType : "json",
+										success : function(data) {
+											username = data.obj;
+											if (username == null) {
+												Lobibox.notify('info', {
+													img : "images/warn.png",
+													title : "您还没有登陆，请登录后查看 ",
+													msg : "稍后将自动跳转到登录页面。"
+												});
+												setTimeout('jumplogin()', 5000);
+											} else {
+												$
+														.ajax({
+															type : "POST",
+															url : "/pb/restful/order/getOrders",
+															dataType : "json",
+															data : {
+																"username" : username
+															},
+															success : function(
+																	data) {
+																console
+																		.log(data);
+																document
+																		.getElementById("Untbody").innerHTML = "";
+																document
+																		.getElementById("Comtbody").innerHTML = "";
+																$
+																		.each(
+																				data.obj,
+																				function(
+																						index,
+																						item) {
+																					var shtml = "<tr><td><img src='"+item.id.coverImage+"' class='cover'></img></td>"
+																							+ "<td><a onclick='go2detail(this);' value='"+item.id.orderId+"'>"
+																							+ item.id.orderId
+																							+ "</a></td>"
+																							+ "<td width='30%'>"
+																							+ item.id.orderDetail
+																							+ "</td>"
+																							+ "<td id='orderStatus'>"
+																							+ item.id.orderStatus
+																							+ "</td>"
+																							+ "<td>"
+																							+ item.id.userId
+																							+ "</td>"
+																							+ "<td>￥"
+																							+ item.id.totalMoney
+																							+ "</td>";
+																					if (item.id.orderStatus == "待发货") {
+																						shtml += "<td id='imgbutton'><img src='images/confirm.png' onclick='confirmitem(this);' title='确认收货' class='buttons' "
+																								+ "value='"
+																								+ item.id.orderId
+																								+ "' /></td></tr>";
+																						$(
+																								'#Untbody')
+																								.append(
+																										shtml);
+																					} else {
+																						if (item.id.orderStatus == "已签收") {
+																							shtml += "<td id='imgbutton'><img src='images/returns.png' onclick='askforreturn(this);' title='申请退货' class='buttons' value='"
+																									+ item.id.orderId
+																									+ "'></img>"
+																									+ "<img src='images/delete.png' onclick='deleteitem(this);' class='buttons' title='删除' value='"
+																									+ item.id.orderId
+																									+ "'></img></td></tr>";
+																							$(
+																									'#Comtbody')
+																									.append(
+																											shtml);
+																						} else if (item.id.orderStatus == "退货中") {
+																							shtml += "<td id='imgbutton'><img src='images/cancelreturn.png' onclick='cancelreturn(this);' class='buttons' title='取消退货' value='"
+																									+ item.id.orderId
+																									+ "'></img></td></tr>";
+																							$(
+																									'#Comtbody')
+																									.append(
+																											shtml);
+																						}
+																					}
+																				})
+															}
+														});
+
+											}
+										}
+									});
+						});
+	</script>
+
+	<script type="text/javascript">
+		function confirmitem(img) {
+			$
+					.ajax({
+						type : "POST",
+						url : "/pb/restful/order/completeOrder",
+						dataType : "json",
+						data : {
+							"orderID" : img.getAttribute("value"),
+							"orderStatus" : "已签收"
+						},
+						success : function(data) {
+							var node = img.parentNode.parentNode;
+							var tbody = node.parentNode;
+							var creatObject = jQuery(node);
+							$(creatObject).find("#orderStatus").html("已签收");
+							console.log(img.getAttribute("value"));
+							$(creatObject)
+									.find("#imgbutton")
+									.html(
+											"<img src='images/returns.png' onclick='askforreturn(this);' title='申请退货' class='buttons' value='"+img.getAttribute('value')+"'></img>"
+													+ "<img src='images/delete.png' onclick='deleteitem(this);' class='buttons' title='删除' value='"+img.getAttribute('value')+"'></img>");
+							console.log(creatObject)
+							$("#Comtbody").append(creatObject);
+							Lobibox.notify('info', {
+								img : "images/warn.png",
+								title : "签收成功 "
+							});
+						}
+					});
+		}
+
+		function askforreturn(img) {
+			$
+					.ajax({
+						type : "POST",
+						url : "/pb/restful/order/completeOrder",
+						dataType : "json",
+						data : {
+							"orderID" : img.getAttribute("value"),
+							"orderStatus" : "退货中"
+						},
+						success : function(data) {
+							var node = img.parentNode.parentNode;
+							var tbody = node.parentNode;
+							var creatObject = jQuery(node);
+							$(creatObject).find("#orderStatus").html("退货中");
+							$(creatObject)
+									.find("#imgbutton")
+									.html(
+											"<img src='images/cancelreturn.png' onclick='cancelreturn(this);' class='buttons' title='取消退货' value='"+img.getAttribute('value')+"'></img>");
+							console.log(creatObject)
+							$("#Comtbody").append(creatObject);
+							Lobibox.notify('info', {
+								img : "images/warn.png",
+								title : "申请退货成功",
+								msg : "请等待客服与您联系退货细节"
+							});
+						}
+					});
+		}
+
+		function cancelreturn(img) {
+			$
+					.ajax({
+						type : "POST",
+						url : "/pb/restful/order/completeOrder",
+						dataType : "json",
+						data : {
+							"orderID" : img.getAttribute("value"),
+							"orderStatus" : "已签收"
+						},
+						success : function(data) {
+							var node = img.parentNode.parentNode;
+							var tbody = node.parentNode;
+							var creatObject = jQuery(node);
+							$(creatObject).find("#orderStatus").html("已签收");
+							var itemID = $(creatObject).find("#imgbutton")
+									.attr("value");
+							console.log(itemID);
+							$(creatObject)
+									.find("#imgbutton")
+									.html("<img src='images/returns.png' onclick='askforreturn(this);' title='申请退货' class='buttons' value='"+img.getAttribute('value')+"'></img>"
+													+ "<img src='images/delete.png' onclick='deleteitem(this);' class='buttons' title='删除' value='"+img.getAttribute('value')+"'></img>");
+							console.log(creatObject)
+							$("#Comtbody").append(creatObject);
+							Lobibox.notify('info', {
+								img : "images/warn.png",
+								title : "取消退款成功 "
+							});
+						}
+					});
+		}
+
+		function deleteitem(img) {
+			$
+					.ajax({
+						type : "POST",
+						url : "/pb/restful/order/deleteOrder",
+						dataType : "json",
+						data : {
+							"orderID" : img.getAttribute("value")
+						},
+						success : function(data) {
+							var node = img.parentNode.parentNode;
+							console.log(node);
+							var tbody = node.parentNode;
+							tbody.removeChild(node);
+							Lobibox.notify('info', {
+								img : "images/warn.png",
+								title : "删除记录成功 "
+							});
+						}
+					});
+		}
+		
+		function go2detail(item){
+			window.location.href = "orderDetail.html?orderID="+item.getAttribute("value");
+		}
+	</script>
+	
+	<script type="text/javascript">
+	var username;
+
+		/**
+		 * 页面获取初始数据，初始化登录按钮
+		 */
+		$(document)
+				.ready(
+						function() {
+							var login = document.getElementById('login');
+							if (login.children[0].innerHTML == "登录") {
+								$.ajax({
+									type : "POST",
+									url : "/pb/restful/users/getCurrentUser",
+									dataType : "json",
+									success : function(data) {
+										username = data.obj;
+										if (username == null) {
+											return;
+										} else {
+											login.innerHTML = "";
+											var shtml = "<a class='button fit' id='login' onclick='exit()'>"
+													+ username
+													+ ",<font color='red'><bold>退出</bold></font></a>";
+											$('#login').append(shtml);
+										}
+									}
+								});
+							}
+						});
+		
+		/**
+		 * 退出登录
+		 */
+		function exit() {
+			console.log();
+			$.ajax({
+				type : "POST",
+				url : "/pb/restful/deleteSession/deleteUsers",
+				dataType : "json",
+				data : {
+					"username" : username
+				},
+				success : function(data) {
+					jumpurl();
+				}
+		
+			});
+		}
+		
+		/**
+		 * 获取当前session用户名
+		 */
+		function getUsername(){
+			$.ajax({
+				type : "POST",
+				url : "/pb/restful/users/getCurrentUser",
+				dataType : "json",
+				success : function(data) {
+					username = data.obj;
+					console.log(username);
+					return username;
+				}
+			});
+			
+		}
+		
+		/**
+		 * 添加条目到用户的购物车（cart）中
+		 * 
+		 * @param item
+		 *            添加购物车按钮
+		 */
+		function addItem2Cart(item) {
+			var itemID = item.getAttribute("value");
+			var size = document.getElementsByName(itemID);
+			var flag = 1;
+			for ( var i = 0; i < size.length; i++) {
+				if (size[i].checked) {
+					itemID += size[i].value;
+					flag = 0;
+				}
+			}
+			if (flag) {
+				Lobibox.notify('info', {
+					img : "images/warn.png",
+					title : "请选择型号！"
+				});
+				return;
+			}
+			
+			$.ajax({
+				type : "POST",
+				url : "/pb/restful/users/getCurrentUser",
+				dataType : "json",
+				success : function(data) {
+					username = data.obj;
+					if (username == null) {
+		
+						Lobibox.notify('info', {
+							img : "images/warn.png",
+							title : "您还没有登陆，请登录后购买 ",
+							msg : "稍后将自动跳转到登录页面。"
+						});
+						setTimeout('jumplogin()', 5000);
+						return;
+					}
+					else{
+						$.ajax({
+							type : "POST",
+							url : "/pb/restful/item/addItem",
+							dataType : "json",
+							data : {
+								"itemID" : itemID,
+							},
+							success : function(data) {
+								Lobibox.notify('info', {
+									img : "images/warn.png",
+									title : "加入购物车成功",
+									msg : "请到购物车查看。"
+								});
+							}
+		
+						});
+					}
+				}
+			});
+		}
+		
+		
+		/**
+		 * 跳转到主页
+		 */
+		function jumpurl(){
+			window.location.href="index.html"; 
+		}
+		
+		/**
+		 * 跳转到登录界面
+		 */
+		function jumplogin() {
+			window.location.href = "login.html";
+		}
+		
+		/*
+		 * 功能：获取cookies函数 参数：name，cookie名字
+		 */
+		function getCookie(name) {
+			var arr = document.cookie.match(new RegExp("(^| )" + name
+					+ "=([^;]*)(;|$)"));
+			if (arr != null) {
+				return unescape(arr[2]);
+			} else {
+				return null;
+			}
+		}
+		/*
+		 * 功能：删除cookies函数 参数：name，cookie名字
+		 */
+		
+		 function delCookie(name){
+		     var exp = new Date();  // 当前时间
+		     exp.setTime(exp.getTime() - 1);
+		     var cval=getCookie(name);
+		     if(cval!=null) document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+		 }
+		 
+		 /*
+			 * 功能：保存cookies函数 参数：name，cookie名字；value，值
+			 */
+		 function SetCookie(name,value){
+		     var Days = 0.02;   // cookie 将被保存半小时
+		     var exp  = new Date();  // 获得当前时间
+		     exp.setTime(exp.getTime() + Days*24*60*60*1000);  // 换成毫秒
+		     document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+		 } 
+	</script>
+</body>
+</html>

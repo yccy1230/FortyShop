@@ -1,0 +1,270 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<head>
+<title>登录/注册</title>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, user-scalable=no" />
+<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+<link rel="stylesheet" href="assets/css/main.css" />
+<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+</link>
+</head>
+<body>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Header -->
+		<header id="header">
+			<a href="index.html" class="logo"><strong>Forty Shop</strong> <span>by
+					雨晨&汤汤</span> </a>
+			<nav>
+				<a href="#menu">Menu</a>
+			</nav>
+		</header>
+
+		<!-- Menu -->
+		<nav id="menu">
+			<ul class="links">
+				<li><a href="index.html">主页</a></li>
+				<li><a href="shoppingcart.html">购物车</a></li>
+			</ul>
+			<ul class="actions vertical">
+				<li><a href="orders.html" class="button special fit">我的订单</a></li>
+				<li><a href="login.html" class="button fit" id="login">登录</a></li>
+			</ul>
+		</nav>
+
+		<!-- Main -->
+		<div id="main" class="alt">
+
+			<!-- One -->
+			<section id="one">
+				<div class="inner">
+					<span class="image main"><img src="images/login.jpg"
+						style="height:500px" alt="" /> </span>
+					<div class="row 200%">
+						<div class="6u 12u$(medium)">
+							<h3>注册新用户</h3>
+							<form method="post" action="#">
+								<div class="row uniform">
+									<div class="12u 12u$(xsmall)">
+										用户名：<input type="text" name="demo-name" id="registe-name"
+											value="" placeholder="请输入用户名" />
+									</div>
+									<div class="12u$ 12u$(xsmall)">
+										密码：<input type="password" name="demo-password"
+											id="registe-password" value="" placeholder="请输入密码" />
+									</div>
+									<!-- Break -->
+									<div class="6u 12u$(small)">
+										<input type="radio" id="demo-priority-low" name="gender"
+											value="man" checked> <label for="demo-priority-low">靓仔</label>
+									</div>
+									<div class="6u 12u$(small)">
+										<input type="radio" id="demo-priority-normal" name="gender"
+											value="woman"> <label for="demo-priority-normal">萌妹</label>
+									</div>
+									<!-- Break -->
+									<div class="12u$">
+										<textarea name="demo-message" id="message"
+											placeholder="请输入个人简介" rows="6"></textarea>
+									</div>
+									<!-- Break -->
+									<div class="12u$">
+										<ul class="actions">
+											<li><input type="button" value="注册" class="special"
+												onclick="registe();" /></li>
+											<li><input type="reset" value="清除" /></li>
+										</ul>
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="6u$ 12u$(medium)">
+							<h3>登录</h3>
+							<form method="post" action="#">
+								<div class="row uniform">
+									<div class="12u 12u$(xsmall)">
+										用户名：<input type="text" name="demo-name" id="login-name"
+											value="" placeholder="请输入用户名" />
+									</div>
+									<div class="12u$ 12u$(xsmall)">
+										密码：<input type="password" name="demo-password"
+											id="login-password" value="" placeholder="请输入密码" />
+									</div>
+									<div class="12u$">
+										<ul class="actions">
+											<li><input type="button" value="登录" class="special"
+												onclick="login();" /></li>
+											<li><input type="reset" value="清除" /></li>
+										</ul>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</section>
+
+		</div>
+
+		<!-- Footer -->
+		<footer id="footer">
+			<div class="inner">
+				<ul class="icons">
+					<li><a href="#" class="icon alt fa-twitter"><span
+							class="label">Twitter</span> </a></li>
+					<li><a href="#" class="icon alt fa-facebook"><span
+							class="label">Facebook</span> </a></li>
+					<li><a href="#" class="icon alt fa-instagram"><span
+							class="label">Instagram</span> </a></li>
+					<li><a href="#" class="icon alt fa-github"><span
+							class="label">GitHub</span> </a></li>
+					<li><a href="#" class="icon alt fa-linkedin"><span
+							class="label">LinkedIn</span> </a></li>
+				</ul>
+				<ul class="copyright">
+					<li>&copy; ECNU</li>
+					<li>Design: 陈宇&汤韫铭</li>
+				</ul>
+			</div>
+		</footer>
+	</div>
+
+
+
+	<!-- Scripts -->
+
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.scrolly.min.js"></script>
+	<script src="assets/js/jquery.scrollex.min.js"></script>
+	<link rel="stylesheet" href="alert/jQuery-lobibox20160404/dist/css/Lobibox.min.css" type="text/css"></link>
+	<script type="text/javascript" src="alert/jQuery-lobibox20160404/dist/js/lobibox.min.js"></script>
+	<script src="assets/js/skel.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+	<script src="assets/js/main.js"></script>
+	<script type="text/javascript" src="js/myjavasrcipt.js"></script>
+
+	<script type="text/javascript">
+	
+		//登陆请求：
+		function login() {
+			var username = $("#login-name").val();
+			var password = $("#login-password").val();
+			if(username==""){
+				Lobibox.notify('error',{
+					img:"images/attention.png",
+					title:"请输入用户名。",
+				}); 
+				return;
+			}
+			if(password==""){
+				Lobibox.notify('error',{
+					img:"images/attention.png",
+					title:"请输入密码。",
+				}); 
+				return;
+			}
+			$.ajax({
+				type : "POST",
+				url : "/pb/restful/users/isVaild",
+				dataType:"json",
+				data : {
+					"username" : username,
+					"password" : password
+				},
+				success : function(data) {
+					console.log(data);
+					if(data.retcode=="0000"){
+						Lobibox.notify('success',{
+							img:"images/success.png",
+							title:"欢迎您"+data.obj.username,
+						    msg: "登陆成功！稍后将自动跳转到主页。"
+						}); 
+						SetCookie("username",data.obj.username);
+						setTimeout('jumpurl()',5000); 
+					}   
+					else if(data.retcode=="0002"){
+						Lobibox.notify('info',{
+							img:"images/warn.png",
+							title:"重复登陆",
+						    msg: data.errorMsg+"稍后将自动跳转到主页。"
+						}); 
+						setTimeout('jumpurl()',5000); 
+					}  
+					else if(data.retcode=="0001"){
+						Lobibox.notify('error',{
+							img:"images/warn.png",
+							title:"账号或密码错误",
+						    msg: "请检查账号密码"
+						}); 
+					}    
+				}
+
+			});
+		}
+
+		//注册请求：
+		function registe() {
+			var username = $("#registe-name").val();
+			var password = $("#registe-password").val();
+			var gender = $("input[name='gender']:checked").val();
+			var profile = $("#message").val();
+			if(username==""){
+				Lobibox.notify('error',{
+					img:"images/attention.png",
+					title:"请输入用户名。",
+				}); 
+				return;
+			}
+			if(password==""){
+				Lobibox.notify('error',{
+					img:"images/attention.png",
+					title:"请输入密码。",
+				}); 
+				return;
+			}
+			$.ajax({
+				type : "POST",
+				url : "/pb/restful/users/registe",
+				dataType:"json",
+				data : {
+					"username" : username,
+					"password" : password,
+					"gender" : gender,
+					"profile" : profile
+				},
+				success : function(data) {
+					console.log(data);
+					if(data.retcode=="0000"){
+						Lobibox.notify('info',{
+							img:"images/heart.png",
+							title:"欢迎您,"+username,
+						    msg: "稍后将自动跳转到主页。"
+						}); 
+						SetCookie("username",data.obj);
+						setTimeout('jumpurl()',5000); 
+					}   
+					else if(data.retcode=="0001"){
+						Lobibox.notify('info',{
+							img:"images/warn.png",
+							title:data.errorMsg
+						}); 
+					}  
+				}
+
+			});
+		}
+	</script>
+</body>
+</html>

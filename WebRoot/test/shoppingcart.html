@@ -1,0 +1,154 @@
+<!DOCTYPE HTML>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>购物车</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<style type="text/css">
+			td {
+				vertical-align:middle;
+			}
+			.cover{
+				width:100px;
+				height:100px;
+			}
+			.buttons{
+				width:30px;
+				height:30px;
+			}
+			
+		</style>
+	</head>
+	<body>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<a href="index.html" class="logo"><strong>Forty Shop</strong> <span>by 雨晨&汤汤</span></a>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<ul class="links">
+							<li><a href="index.html">主页</a></li>
+							<li><a href="shoppingcart.html">购物车</a></li>
+						</ul>
+						<ul class="actions vertical">
+							<li><a href="orders.html" class="button special fit">我的订单</a></li>
+							<li id="login"><a href="login.html" class="button fit">登录</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main" class="alt">
+
+						<!-- One -->
+							<section id="one">
+								<div class="inner">
+									<header class="major">
+										<h1>购物车</h1>
+									</header>
+									<div class="box">
+										<div class="table-wrapper">
+											<table>
+												<thead>
+													<tr>
+														<th>图片</th>
+														<th>详情&尺码</th>
+														<th>价格*数量</th>
+														<th>操作</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td><img src="images/cover/coat.jpg" class="cover"></img></td>
+														<td>详情：冬季新款大衣<br/>尺码：XL;175</td>
+														<td>29.99*1</td>
+														<td><img src="images/delete.png" onclick="deleteitem(this);" class="buttons"></img></td>
+													</tr>
+													<tr>
+														<td><img src="images/cover/accessories.jpg" class="cover"></img></td>
+														<td>详情：新款服装配饰项链<br/>尺码：XL;175</td>
+														<td>19.99*1</td>
+														<td><img src="images/delete.png" onclick="deleteitem(this);" class="buttons"></img></td>
+													</tr>
+													<tr>
+														<td><img src="images/cover/shoes.jpg" class="cover"></img></td>
+														<td>详情：冬季新款包包<br/>尺码：XL;</td>
+														<td>29.99*1</td>
+														<td><img src="images/delete.png" onclick="deleteitem(this);" class="buttons"></img></td>
+													</tr>
+												</tbody>
+												<tfoot>
+													<tr>
+														<td colspan="2">总计：</td>
+														<td>100.00</td>
+													</tr>
+												</tfoot>
+											</table>
+										</div>
+										<div class="12u$" align="right">
+											<ul class="actions">
+												<li><input type="reset" value="清空购物车" /></li>
+												<li><input type="submit" value="结算" class="special" /></li>
+											</ul>
+										</div>
+									</div>	
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<ul class="icons">
+								<li><a href="#" class="icon alt fa-twitter"><span class="label">Twitter</span></a></li>
+								<li><a href="#" class="icon alt fa-facebook"><span class="label">Facebook</span></a></li>
+								<li><a href="#" class="icon alt fa-instagram"><span class="label">Instagram</span></a></li>
+								<li><a href="#" class="icon alt fa-github"><span class="label">GitHub</span></a></li>
+								<li><a href="#" class="icon alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
+							</ul>
+							<ul class="copyright">
+								<li>&copy; ECNU</li>
+								<li>Design: 陈宇&汤韫铭</li>
+								
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+			<script type="text/javascript" src="js/myjavasrcipt.js"></script>
+
+			<script type="text/javascript">
+				function deleteitem(item){
+					console.log(item);
+					var node = item.parentNode.parentNode;
+					var tbody = node.parentNode;
+					tbody.removeChild(node);
+				}
+			</script>
+	</body>
+</html>
